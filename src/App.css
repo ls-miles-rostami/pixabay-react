@@ -60,6 +60,8 @@ body {
   position: relative;
   margin-top: 100px;
   margin-bottom: 100px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .search-label {
@@ -79,8 +81,8 @@ input[type='text']:focus ~ .search-label {
   font-size: 14px;
 }
 
-textarea,
-input {
+
+ input {
   outline: none;
   border: 0;
   border-bottom: 1px solid #cecece;
@@ -139,4 +141,31 @@ input {
 }
 .made-with-love a:hover {
   text-decoration: underline;
+}
+
+.sort a {
+  text-decoration: none;
+  margin: 0px 10px;
+  color: black;
+}
+
+.sort-active{
+  color: orangered !important;
+}
+
+
+@media only screen
+and (max-width : 375px) {
+  .search-form {
+    position: relative;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  input {
+    width: 100%;
+  }
 }
