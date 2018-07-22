@@ -15,43 +15,22 @@ class App extends Component {
   };
 
   onOrderChange = order => {
-    this.setState({ order }, () => {
-      if (this.state.search.length !== 0) {
-        const { search, count, order } = this.state;
-        let url = `https://pixabay.com/api/?key=${
-          keys.apiKey
-        }&q=${search}&image_type=photo&order=${order}&per_page=${count}&safesearch=true`;
-        fetch(url)
-          .then(data => data.json())
-          .then(response => {
-            this.setState({
-              images: response.hits
-            });
-          })
-          .catch(err => console.log(err));
-      }
-    });
-  }
-  
+    this.setState({ order }, () => this.getImages());
+  };
 
   OnChangeInput = debounce(search => {
-    this.setState({ search }, () => {
-      if (this.state.search.length !== 0) {
-        const { search, count, order } = this.state;
-        let url = `https://pixabay.com/api/?key=${
-          keys.apiKey
-        }&q=${search}&image_type=photo&order=${order}&per_page=${count}&safesearch=true`;
-        fetch(url)
-          .then(data => data.json())
-          .then(response => {
-            this.setState({
-              images: response.hits
-            });
-          })
-          .catch(err => console.log(err));
-      }
-    });
+    this.setState({ search }, () => this.getImages());
   }, 500);
+
+   async getImages() {
+    if (this.state.search.length !== 0) {
+      const { search, count, order } = this.state;
+      let url = `https://pixabay.com/api/?key=${keys.apiKey}&q=${search}&image_type=photo&order=${order}&per_page=${count}&safesearch=true`;
+      let data = await fetch(url)
+      let response = await data.json()
+      this.setState({ images: response.hits})
+    }
+  }
 
   render() {
     return (
